@@ -2,7 +2,11 @@ import { serialize, CookieSerializeOptions } from 'cookie'
 import { NextApiResponse } from 'next'
 
 /**
- * This sets `cookie` using the `res` object
+ * sets cookie
+ * @param {NextApiResponse} res - the response object
+ * @param {string} name - cookie name
+ * @param {unknown} value - value of cookie
+ * @param {CookieSerializeOptions} options - any cookie options
  */
 
 export const setCookie = (
@@ -20,4 +24,17 @@ export const setCookie = (
   }
 
   res.setHeader('Set-Cookie', serialize(name, String(stringValue), options))
+}
+
+
+/**
+ * clears cookie
+ * @param {NextApiResponse} res - response object 
+ * @param {string} name - name of tag
+ */
+export const clearCookie = (
+  res:NextApiResponse,
+  name:string
+) => {
+  res.removeHeader(name)
 }

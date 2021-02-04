@@ -1,12 +1,7 @@
 import Card from '../components/Card'
 import Layout from '../components/Layout'
-import Output from '../components/Output';
-
-function copy(){
-    let text = document.getElementById('');
-    
-
-}
+import Output from '../components/Output'
+import { useState } from 'react'
 
 export default function Setup(){
     return(
@@ -15,16 +10,14 @@ export default function Setup(){
             <br/>
             <br/>
             <Card>
+                <form>
+                    <label>
+
+                    </label>
+                </form>
             </Card>
             <br/>
             <br/>
-            <Output>
-                USER_TOKEN:
-                REFRESH_TOKEN:
-                GPIO_MAPPING:
-                CLIENT_SECRET: 'YOUR CLIENT SECRET'
-                CLIENT_ID: 'YOUR CLIENT ID'
-            </Output>
         </Layout>
     )
 }
