@@ -5,8 +5,7 @@ import * as crypto from 'crypto-js'
 /**
  * gives application refresh/access tokens
  * @name callback
- * @param SECRET: hashed client app secret
- * @param ID: hashed client app ID
+ * @param secret: client secret
  * @method GET
  */
 // for now
@@ -20,18 +19,26 @@ export default async (req, res) => {
     if(method != 'GET'){
         res.send(400)
     }
+    let secret = req.secret
     let code = req.query.code
     let state = req.query.state 
     let storedState = req.cookies ? req.cookies['spotify_auth_state'] : null
     //checks if cookie state matches returned state
+
     if(state == null || state != storedState){
         res.status(400).json({error: 'state mismatch'})
     } else {
         clearCookie(res, 'spotify_auth_state')
         let payload = {
-            headers:{'Authorization': 'Basic '}
-
+            form:{
+                code: code,
+                redirect_uri: 'https://panel.evannnishi.me/setup',
+                grant_type: 'authorization_code'
+            },
+            headers:{'Authorization': 'Basic ' + Buffer.from((client_id + ':' + secret),'base64')},
+            json: true
         }
-        axios.post('https://api.spotify.com/v1/me', payload)
+        let resp = await axios.post('https://accounts.spotify.com/api/token', payload)
+        let refresh_token = resp.data.form.refresh_token
     }
 }

@@ -11,9 +11,8 @@ function randState(len) {
   return text
 }
 
-
 export default async (req, res) => {
-  const { method } = req
+const { method } = req
   //if no client id provided use my app id
   let client_id = (req.id) ? req.id : process.env.CLIENT_ID
   if(method != 'GET'){
