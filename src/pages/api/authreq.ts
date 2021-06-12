@@ -13,19 +13,18 @@ function randState(len) {
 
 export default async (req, res) => {
 const { method } = req
-  //if no client id provided use my app id
-  let client_id = (req.id) ? req.id : process.env.CLIENT_ID
+  let client_id = process.env.CLIENT_ID
   if(method != 'GET'){
       res.send(400)
   } else {
       let state = randState(16)
-      setCookie(res, 'spotify_auth_state',state)
-      res.redirect('https://accounts/spotify.com/authorize?' +
+      setCookie(res, 'spotify_auth_state',state) //sets cookie, fingers crossed for no xss
+      res.redirect('https://accounts.spotify.com/authorize?' +
         querystring.stringify({
           response_type:'code',
           client_id: client_id,
           scope:'user-read-playback-state user-read-currently-playing',
-          redirect_uri: 'https://panel.evannishi.me/setup',
+          redirect_uri: process.env.BASE_URL + '/api/callback',
           state: state
         })
       )

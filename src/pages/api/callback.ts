@@ -1,6 +1,5 @@
 import { clearCookie } from '../../utils/cookies'
 import axios from 'axios'
-import * as crypto from 'crypto-js'
 
 /**
  * gives application refresh/access tokens
@@ -10,11 +9,9 @@ import * as crypto from 'crypto-js'
  */
 // for now
 let client_id = process.env.CLIENT_ID
+let base_url = process.env.BASE_URL
 
-//this is horrible but alas there is no other way
 export default async (req, res) => {
-    //TODO: make this not horrible
-    //crypto.AES.decrypt(req.ID, process.env.PASSPHRASE)
     const { method } = req
     if(method != 'GET'){
         res.send(400)
@@ -32,7 +29,7 @@ export default async (req, res) => {
         let payload = {
             form:{
                 code: code,
-                redirect_uri: 'https://panel.evannnishi.me/setup',
+                redirect_uri: base_url + '/setup',
                 grant_type: 'authorization_code'
             },
             headers:{'Authorization': 'Basic ' + Buffer.from((client_id + ':' + secret),'base64')},
@@ -40,5 +37,7 @@ export default async (req, res) => {
         }
         let resp = await axios.post('https://accounts.spotify.com/api/token', payload)
         let refresh_token = resp.data.form.refresh_token
+
+        console.log(resp.data.form.refresh_token)
     }
 }
