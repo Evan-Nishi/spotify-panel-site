@@ -24,7 +24,8 @@ const { method } = req
           response_type:'code',
           client_id: client_id,
           scope:'user-read-playback-state user-read-currently-playing',
-          redirect_uri: process.env.BASE_URL + '/api/callback',
+          redirect_uri: 'http://localhost:3000/callback',
+          //redirect_uri: process.env.BASE_URL + '/api/callback',
           state: state
         })
       )

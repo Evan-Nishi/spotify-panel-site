@@ -37,4 +37,5 @@ export const clearCookie = (
   name:string
 ) => {
   res.removeHeader(name)
+  console.log('cookie removed')
 }

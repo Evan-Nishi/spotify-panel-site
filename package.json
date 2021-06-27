@@ -7,17 +7,20 @@
     "dev": "next",
     "build": "next build",
     "export": "next export",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest --watchAll --verbose"
   },
   "author": "Evan Nishi",
   "license": "MIT",
   "dependencies": {
+    "@types/jest": "^26.0.23",
     "axios": "^0.21.1",
     "cookie": "^0.4.1",
     "cookieparser": "^0.1.0",
     "cors": "^2.8.5",
     "crypto-js": "^4.0.0",
     "form-data": "^3.0.0",
+    "jest": "^27.0.5",
     "next": "^10.0.5",
     "querystring": "^0.2.0",
     "react": "^17.0.1",
